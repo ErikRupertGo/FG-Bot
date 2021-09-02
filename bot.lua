@@ -36,20 +36,13 @@ client:on('messageCreate', function(message)
 		message:reply("ulol tangina mo anong play play ka diyan")
 	end
 
+	local args = Split(message.content, " ")
 
 	if isCommand(message) then
-		if Split(message.content, ' ')[1] == prefix..commands.help.name then
-			commands.help.exec(message)
-		elseif Split(message.content, ' ')[1] == prefix..commands.upgrade.name then
-			commands.upgrade.exec(message)
-		elseif Split(message.content, ' ')[1] == prefix..commands.concertMode.name then
-			commands.concertMode.exec(message)
-		elseif Split(message.content, ' ')[1] == prefix..commands.prefix.name then
-			commands.prefix.exec(message)
-		elseif Split(message.content, ' ')[1] == prefix..commands.donate.name then
-			commands.donate.exec(message)
-		elseif Split(message.content, ' ')[1] == prefix..commands.downgrade.name then
-			commands.downgrade.exec(message)
+		for k, v in pairs(commands) do
+			if args[1] == prefix..commands[k].name then
+				commands[k].exec(message)
+			end
 		end
 	end
 	
