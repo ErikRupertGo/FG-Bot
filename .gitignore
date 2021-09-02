@@ -39,3 +39,7 @@ luac.out
 *.x86_64
 *.hex
 
+\deps
+discordia.log
+FG Bot.code-workspace
+gateway.json
