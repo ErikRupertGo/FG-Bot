@@ -5,8 +5,10 @@ local commands = require ("commands")
 discordia.extensions()
 require("util")
 
-
-local token = 'ODgxNDA4OTgyODAyMTE2NjE4.YSsaFQ.qIeqEH_meezByohRETo-yQ379-E'
+local tokenFile = io.open("token", "r")
+io.input(tokenFile)
+local token = io.read()
+io.close(tokenFile)
 
 client:on('ready', function()
 	print("Bot is now online!")
