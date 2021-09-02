@@ -48,6 +48,8 @@ client:on('messageCreate', function(message)
 			commands.prefix.exec(message)
 		elseif Split(message.content, ' ')[1] == prefix..commands.donate.name then
 			commands.donate.exec(message)
+		elseif Split(message.content, ' ')[1] == prefix..commands.downgrade.name then
+			commands.downgrade.exec(message)
 		end
 	end
 	
