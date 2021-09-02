@@ -11,6 +11,7 @@ local token = io.read()
 io.close(tokenFile)
 
 client:on('ready', function()
+	commands.help.update()
 	print("Bot is now online!")
 end)
 

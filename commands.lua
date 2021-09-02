@@ -4,11 +4,20 @@ local commands = {}
 commands.help = {}
 commands.help.name = "help"
 commands.help.description = [[Gives you this info. Bot created by Chad Thundercock.]];
+commands.help.concatString = nil
+function commands.help.update()
+    local temp = {}
+    
+    for k, v in pairs(commands) do 
+        table.insert(temp, v.name.." - "..v.description)
+    end
+
+    commands.help.concatString = table.concat(temp, "\n")
+
+end
 
 function commands.help.exec(message)
-    for k, v in pairs(commands) do
-        message.channel:send(commands[k].name.."    "..commands[k].description)
-    end
+    message:reply(commands.help.concatString)
 end
 
 commands.upgrade = {}
@@ -152,14 +161,4 @@ function commands.donate.exec(message)
     message.channel:send("Please send some money over at: paypal.me/KoolieAid \n GCASH: 09777708608; PayMaya(Better): 09777708608")
 end
 
---[[Debug
-for k, v in pairs(commands) do
-    for iK, iV in pairs(commands[k]) do
-        print(iK, iV)
-    end
-end
-
-print()
-print()
-print(commands.help.name)]]
 return commands
