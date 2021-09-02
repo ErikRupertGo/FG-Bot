@@ -25,8 +25,6 @@ client:on('voiceChannelJoin', function(member, channel)
 		member:unmute()
 	end
 
-
-
 end)
 
 client:on('voiceChannelLeave', function(member, channel)
@@ -38,7 +36,6 @@ client:on('voiceUpdate', function(member)
 	if commands.concertMode.on and member.voiceChannel == commands.concertMode.channel and member.user.id ~= commands.concertMode.userid then
 		member:mute()
 	end
-
 
 end)
 
@@ -71,11 +68,9 @@ end)
 function isCommand(message)
 	local args = Split(message.content, ' ')
 
-	for oKey, oVal in pairs(commands) do
-		for key, val in pairs(commands[oKey]) do
-			if string.find(args[1], prefix..commands[oKey].name) then
-				return true
-			end
+	for key, val in pairs(commands) do
+		if string.find(args[1], prefix..commands[key].name) then
+			return true
 		end
 	end
 	return false
