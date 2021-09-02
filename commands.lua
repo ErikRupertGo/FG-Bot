@@ -13,7 +13,7 @@ end
 
 commands.upgrade = {}
 commands.upgrade.name = "upgrade"
-commands.upgrade.description = "Gives the mentioned user the everyone role \n does nothing yet"
+commands.upgrade.description = "Gives the mentioned user the everyone role"
 
 function commands.upgrade.exec(message)
     local args = Split(message.content, " ")
@@ -42,7 +42,7 @@ end
 
 commands.downgrade = {}
 commands.downgrade.name = "downgrade"
-commands.downgrade.description = "Removes the everyone role from specified user \n does nothing yet"
+commands.downgrade.description = "Removes the everyone role from specified user"
 
 function commands.downgrade.exec(message)
     local args = Split(message.content, " ")
@@ -89,24 +89,46 @@ commands.concertMode.exec = function(message)
 
         if member.voiceChannel == nil then
             message.channel:send("You are not connected to a channel")
-        else
+            return
+        end
+
             commands.concertMode.userid = message.author.id
             
             commands.concertMode.channel = member.voiceChannel
             
             commands.concertMode.on = true
             message.channel:send("Concert Mode enabled; Connected to: "..commands.concertMode.channel.name)
-        end
+
+            --Muting already connected Users
+            local joinedMembers = member.voiceChannel.connectedMembers
+
+            for k, v in pairs(joinedMembers) do
+                if v.user.id ~= commands.concertMode.userid then
+                    v:mute()
+                end
+            end
+
     elseif args[2] == "disable" then
         commands.concertMode.userid = nil
+        commands.concertMode.channel = nil
         commands.concertMode.on = false
         message.channel:send("Concert Mode disabled")
+
+        --Unmuting already connected Users
+        local joinedMembers = member.voiceChannel.connectedMembers
+
+        for k, v in pairs(joinedMembers) do
+            if v.user.id ~= commands.concertMode.userid then
+                v:unmute()
+            end
+        end
+
     elseif args[2] == "who" then
         if commands.concertMode.userid == nil then
             message.channel:send("No user selected")
-        else
-            message.channel:send("<@"..commands.concertMode.userid.."> is the MC of "..commands.concertMode.channel.name)
+            return
         end
+            message.channel:send("<@"..commands.concertMode.userid.."> is the MC of "..commands.concertMode.channel.name)
     else
         message.channel:send(commands.concertMode.on)
     end

@@ -1,5 +1,6 @@
 local discordia = require('discordia')
 local client = discordia.Client()
+local clock = discordia.Clock()
 local commands = require ("commands")
 discordia.extensions()
 require("util")
@@ -12,18 +13,34 @@ client:on('ready', function()
 end)
 
 client:on('voiceChannelJoin', function(member, channel)
-	print(member.name.." Joined " .. channel.name)
+	--print(member.name.." Joined " .. channel.name)
+
+	if commands.concertMode.on and (commands.concertMode.channel == channel) and (member.user.id ~= commands.concertMode.userid) then
+		member:mute()
+	end
+
+	if member.muted and commands.concertMode.on and commands.concertMode.channel ~= channel then
+		member:unmute()
+	end
+
+
+
 end)
 
 client:on('voiceChannelLeave', function(member, channel)
-	print(member.name.." Left " .. channel.name)
+-- empty
+end)
+
+client:on('voiceUpdate', function(member)
+	--temp fix lmao
+	if commands.concertMode.on and member.voiceChannel == commands.concertMode.channel and member.user.id ~= commands.concertMode.userid then
+		member:mute()
+	end
+
+
 end)
 
 client:on('messageCreate', function(message)
-	--[[if message.content == prefix..'test' then
-		message.channel:send('tangina mo')
-	end
-	--]]
 	prefix = commands.prefix.currentPrefix
 
 	--[[
@@ -32,6 +49,7 @@ client:on('messageCreate', function(message)
 	elseif message.author.id == '343613515220647957' and not isCommand(message) then
 		message:reply('tahimik amp')
 	end]]
+
 	if Split(message.content, " ")[1] == "!p" then
 		message:reply("ulol tangina mo anong play play ka diyan")
 	end
@@ -45,12 +63,6 @@ client:on('messageCreate', function(message)
 			end
 		end
 	end
-	
-	--[[
-	if argument[1] == prefix..'upgrade' then
-		print("test")
-		message.channel:send(arguments[2])
-	end]]--
 
 end)
 
