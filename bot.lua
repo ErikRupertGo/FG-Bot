@@ -42,11 +42,11 @@ end)
 
 client:on('messageCreate', function(message)
 
-	if not message.guild then
-		return
-	end
-	
+	if not message.guild then return end
+
 	prefix = commands.prefix.currentPrefix
+
+	if string.find(message.content, "wanna die") then message:reply("same") end
 
 	--[[
 	if ((message.author.id ~= '881408982802116618') and (message.author.id ~= '343613515220647957')) then
