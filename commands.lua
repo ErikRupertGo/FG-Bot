@@ -3,7 +3,7 @@ local commands = {}
 
 commands.help = {}
 commands.help.name = "help"
-commands.help.description = [[Gives you this info. Bot created by Chad Thundercock.]];
+commands.help.description = [[Gives you this info.]];
 commands.help.concatString = nil
 function commands.help.update()
     local temp = {}
@@ -17,7 +17,7 @@ function commands.help.update()
 end
 
 function commands.help.exec(message)
-    message:reply(commands.help.concatString)
+    message:reply(commands.help.concatString.."\n\nBot made by Chad Thundercock with the power of lua, luvit, and Discordia")
 end
 
 commands.upgrade = {}
@@ -118,6 +118,12 @@ commands.concertMode.exec = function(message)
             end
 
     elseif args[2] == "disable" then
+
+        if message.author.id ~= commands.concertMode.userid then 
+            message:reply("You are not the MC") 
+            return
+        end
+
         commands.concertMode.userid = nil
         commands.concertMode.channel = nil
         commands.concertMode.on = false

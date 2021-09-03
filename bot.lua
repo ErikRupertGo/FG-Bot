@@ -41,6 +41,11 @@ client:on('voiceUpdate', function(member)
 end)
 
 client:on('messageCreate', function(message)
+
+	if not message.guild then
+		return
+	end
+	
 	prefix = commands.prefix.currentPrefix
 
 	--[[
