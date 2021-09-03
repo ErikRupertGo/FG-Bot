@@ -101,22 +101,20 @@ commands.concertMode.exec = function(message)
             return
         end
 
-            commands.concertMode.userid = message.author.id
-            
-            commands.concertMode.channel = member.voiceChannel
-            
-            commands.concertMode.on = true
-            message.channel:send("Concert Mode enabled; Connected to: "..commands.concertMode.channel.name)
+        commands.concertMode.userid = message.author.id
+        commands.concertMode.channel = member.voiceChannel
+        commands.concertMode.on = true
 
-            --Muting already connected Users
-            local joinedMembers = member.voiceChannel.connectedMembers
-
-            for k, v in pairs(joinedMembers) do
-                if v.user.id ~= commands.concertMode.userid then
-                    v:mute()
-                end
+        --Muting already connected Users
+        local joinedMembers = member.voiceChannel.connectedMembers
+        for k, v in pairs(joinedMembers) do
+            if v.user.id ~= commands.concertMode.userid then
+                v:mute()
             end
-
+        end
+        
+        message.channel:send("Concert Mode enabled; Connected to: "..commands.concertMode.channel.name)
+        
     elseif args[2] == "disable" then
 
         if message.author.id ~= commands.concertMode.userid then 
@@ -127,7 +125,6 @@ commands.concertMode.exec = function(message)
         commands.concertMode.userid = nil
         commands.concertMode.channel = nil
         commands.concertMode.on = false
-        message.channel:send("Concert Mode disabled")
 
         --Unmuting already connected Users
         local joinedMembers = member.voiceChannel.connectedMembers
@@ -137,6 +134,8 @@ commands.concertMode.exec = function(message)
                 v:unmute()
             end
         end
+        
+        message.channel:send("Concert Mode disabled")
 
     elseif args[2] == "who" then
         if commands.concertMode.userid == nil then
