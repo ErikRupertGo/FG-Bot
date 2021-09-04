@@ -155,6 +155,10 @@ commands.prefix.description = [[Changes the prefix of the bot]]
 commands.prefix.currentPrefix = "="
 function commands.prefix.exec(message)
     local args = Split(message.content, " ")
+    if args[2] == nil then
+        message.channel:send("No prefix specified")
+        return
+    end
     commands.prefix.currentPrefix = args[2]
     message.channel:send("Prefix changed to "..commands.prefix.currentPrefix)
 end

@@ -44,6 +44,7 @@ end)
 client:on('messageCreate', function(message)
 
 	if not message.guild then return end
+	if message.author.bot then return end
 
 
 	if string.find(message.content, "wanna die") then message:reply("same") end
