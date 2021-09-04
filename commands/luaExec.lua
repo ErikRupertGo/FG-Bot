@@ -58,11 +58,11 @@ lua.exec = function(message, content)
 
     -- Syntax errors
     local fn, syntaxError = load(code, 'FG Lua', 't', sandbox) -- load the code
-    if not fn then return message:reply(codeBlock(syntaxError).."syntax error") end -- handle syntax errors
+    if not fn then return message:reply(codeBlock(syntaxError)) end -- handle syntax errors
 
     -- Runtime errors
     local success, runtimeError = pcall(fn) -- run the code
-    if not success then return message:reply(codeBlock(runtimeError).."runtime error") end -- handle runtime errors
+    if not success then return message:reply(codeBlock(runtimeError)) end -- handle runtime errors
 
     lines = table.concat(lines, '\n')
 
