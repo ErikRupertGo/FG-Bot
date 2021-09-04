@@ -1,7 +1,7 @@
-local discordia = require('discordia')
-local client = discordia.Client()
+discordia = require('discordia')
+client = discordia.Client()
 local clock = discordia.Clock()
-local commands = require ("commands")
+commands = require ("commands")
 discordia.extensions()
 require("util")
 
@@ -12,6 +12,7 @@ io.close(tokenFile)
 
 client:on('ready', function()
 	commands.help.update()
+	commands.lua.extra.client = client
 	print("Bot is now online!")
 end)
 
@@ -44,7 +45,6 @@ client:on('messageCreate', function(message)
 
 	if not message.guild then return end
 
-	prefix = commands.prefix.currentPrefix
 
 	if string.find(message.content, "wanna die") then message:reply("same") end
 
@@ -63,8 +63,8 @@ client:on('messageCreate', function(message)
 
 	if isCommand(message) then
 		for k, v in pairs(commands) do
-			if args[1] == prefix..commands[k].name then
-				commands[k].exec(message)
+			if args[1] == commands.prefix.currentPrefix..commands[k].name then
+				commands[k].exec(message, message.content)
 			end
 		end
 	end
@@ -75,7 +75,7 @@ function isCommand(message)
 	local args = Split(message.content, ' ')
 
 	for key, val in pairs(commands) do
-		if string.find(args[1], prefix..commands[key].name) then
+		if string.find(args[1], commands.prefix.currentPrefix..commands[key].name) then
 			return true
 		end
 	end

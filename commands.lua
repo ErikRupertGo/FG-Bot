@@ -1,5 +1,5 @@
 require("util")
-local commands = {}
+commands = {}
 
 commands.help = {}
 commands.help.name = "help"
@@ -165,5 +165,7 @@ commands.donate.description = [[Donates to the owner]]
 function commands.donate.exec(message)
     message.channel:send("Please send some money over at: paypal.me/KoolieAid \n GCASH: 09777708608; PayMaya(Better): 09777708608")
 end
+
+commands.lua = require("/commands/luaExec")
 
 return commands
