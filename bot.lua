@@ -43,7 +43,7 @@ end)
 
 client:on('messageCreate', function(message)
 
-	if not message.guild then return end
+	--if not message.guild then return end
 
 
 	if string.find(message.content, "wanna die") then message:reply("same") end
@@ -59,16 +59,23 @@ client:on('messageCreate', function(message)
 		message:reply("ulol tangina mo anong play play ka diyan")
 	end
 
+	local status, error;
+
+	local function exec(k, message)
+		commands[k].exec(message, message.content)
+	end
+
 	local args = Split(message.content, " ")
 
 	if isCommand(message) then
 		for k, v in pairs(commands) do
 			if args[1] == commands.prefix.currentPrefix..commands[k].name then
-				commands[k].exec(message, message.content)
+					status, error = pcall(exec, k, message)
 			end
 		end
 	end
 
+	if status == false then message:reply("```"..error.."```") end
 end)
 
 function isCommand(message)
