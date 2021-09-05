@@ -1,3 +1,4 @@
+-- Code copied from Discordia Wiki, but with slight modifications
 local lua = {}
 local sandbox = {
     discordia = discordia,

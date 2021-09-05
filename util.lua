@@ -6,3 +6,12 @@ function Split(s, delimiter)
     end
     return result;
 end
+
+function existsInArray(_table, object)
+    for i, v in pairs(_table) do
+        if object == v then
+            return true
+        end
+    end
+    return false
+end

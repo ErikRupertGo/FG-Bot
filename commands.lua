@@ -171,5 +171,6 @@ function commands.donate.exec(message)
 end
 
 commands.lua = require("/commands/luaExec")
+commands.lockChannel = require("/commands/lockChannel")
 
 return commands

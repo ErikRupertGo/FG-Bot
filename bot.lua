@@ -17,14 +17,27 @@ client:on('ready', function()
 end)
 
 client:on('voiceChannelJoin', function(member, channel)
-	--print(member.name.." Joined " .. channel.name)
 
-	if commands.concertMode.on and (commands.concertMode.channel == channel) and (member.user.id ~= commands.concertMode.userid) then
-		member:mute()
+	-- Concert Mode
+	if commands.concertMode.on then
+		if commands.concertMode.channel == channel and member.user.id ~= commands.concertMode.userid then
+			member:mute()
+		end
+
+		if member.muted and commands.concertMode.channel ~= channel then
+			member:unmute()
+		end
 	end
 
-	if member.muted and commands.concertMode.on and commands.concertMode.channel ~= channel then
-		member:unmute()
+	-- Lock Channel
+	if commands.lockChannel.state then
+		-- Kicks strangers
+		if not existsInArray(commands.lockChannel.lockedMembers, member) and channel == commands.lockChannel.voiceChannel then
+			member:setVoiceChannel()
+		-- On the lockdown list, bring member back
+		elseif existsInArray(commands.lockChannel.lockedMembers, member) and channel ~= commands.lockChannel.voiceChannel then
+			member:setVoiceChannel(commands.lockChannel.voiceChannel)
+		end
 	end
 
 end)
@@ -48,13 +61,6 @@ client:on('messageCreate', function(message)
 
 
 	if string.find(message.content, "wanna die") then message:reply("same") end
-
-	--[[
-	if ((message.author.id ~= '881408982802116618') and (message.author.id ~= '343613515220647957')) then
-		message:reply('ingay amp')
-	elseif message.author.id == '343613515220647957' and not isCommand(message) then
-		message:reply('tahimik amp')
-	end]]
 
 	if Split(message.content, " ")[1] == "!p" then
 		message:reply("ulol tangina mo anong play play ka diyan")
