@@ -172,5 +172,6 @@ end
 
 commands.lua = require("/commands/luaExec")
 commands.lockChannel = require("/commands/lockChannel")
+commands.team = require("/commands/team")
 
 return commands

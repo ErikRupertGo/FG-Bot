@@ -10,6 +10,8 @@ io.input(tokenFile)
 local token = io.read()
 io.close(tokenFile)
 
+math.randomseed(os.time())
+
 client:on('ready', function()
 	commands.help.update()
 	commands.lua.extra.client = client
