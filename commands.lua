@@ -17,7 +17,7 @@ function commands.help.update()
 end
 
 function commands.help.exec(message)
-    message:reply(commands.help.concatString.."\n\nBot made by Chad Thundercock with the power of lua, luvit, and Discordia")
+    replyToMessage(message, commands.help.concatString.."\n\nBot made by Chad Thundercock with the power of lua, luvit, and Discordia")
 end
 
 commands.upgrade = {}
@@ -28,11 +28,11 @@ function commands.upgrade.exec(message)
     local args = Split(message.content, " ")
     local guild = message.guild
     if #args == 1 then
-        message.channel:send("No user specified")
+        replyToMessage(message, "No user specified")
         return
     end
 
-    message.channel:send("Upgrading User(s)...")
+    replyToMessage(message, "Upgrading User(s)...")
 
     local role = guild:getRole('760002551461707806')
 
@@ -41,12 +41,12 @@ function commands.upgrade.exec(message)
         if message.guild:getMember(message.author.id):hasRole(role) then
             member:addRole('760002551461707806')
         else
-            message:reply("You don't have the role yourself")
+            replyToMessage(message, "You don't have the role yourself")
             return
         end
     end
 
-    message:reply("User(s) have been upgraded")
+    replyToMessage(message, "User(s) have been upgraded")
 end
 
 commands.downgrade = {}
@@ -57,11 +57,11 @@ function commands.downgrade.exec(message)
     local args = Split(message.content, " ")
     local guild = message.guild
     if #args == 1 then
-        message.channel:send("No user specified")
+        replyToMessage(message, "No user specified")
         return
     end
 
-    message.channel:send("Downgrading User(s)...")
+    replyToMessage(message, "Downgrading User(s)...")
 
     local role = guild:getRole('760002551461707806')
 
@@ -70,12 +70,12 @@ function commands.downgrade.exec(message)
         if message.guild:getMember(message.author.id):hasRole(role) then
             member:removeRole('760002551461707806')
         else
-            message:reply("You don't have the role yourself")
+            replyToMessage(message, "You don't have the role yourself")
             return
         end
     end
     
-    message:reply("User(s) have been downgraded")
+    replyToMessage(message, "User(s) have been downgraded")
 end
 
 commands.concertMode = {}
@@ -92,12 +92,12 @@ commands.concertMode.exec = function(message)
     if args[2] == "enable" then
 
         if commands.concertMode.on then
-            message.channel:send("Concert Mode is already on at: "..commands.concertMode.channel.name.."\nDisable concert mode first before changing channel")
+            replyToMessage(message, "Concert Mode is already on at: "..commands.concertMode.channel.name.."\nDisable concert mode first before changing channel")
             return
         end
 
         if member.voiceChannel == nil then
-            message.channel:send("You are not connected to a channel")
+            replyToMessage(message, "You are not connected to a channel")
             return
         end
 
@@ -113,12 +113,12 @@ commands.concertMode.exec = function(message)
             end
         end
         
-        message.channel:send("Concert Mode enabled; Connected to: "..commands.concertMode.channel.name)
+        replyToMessage(message, "Concert Mode enabled; Connected to: "..commands.concertMode.channel.name)
         
     elseif args[2] == "disable" then
 
         if message.author.id ~= commands.concertMode.userid then 
-            message:reply("You are not the MC") 
+            replyToMessage(message, "You are not the MC")
             return
         end
 
@@ -135,16 +135,16 @@ commands.concertMode.exec = function(message)
             end
         end
         
-        message.channel:send("Concert Mode disabled")
+        replyToMessage(message, "Concert Mode disabled")
 
     elseif args[2] == "who" then
         if commands.concertMode.userid == nil then
-            message.channel:send("No user selected")
+            replyToMessage(message, "No user selected")
             return
         end
-            message.channel:send("<@"..commands.concertMode.userid.."> is the MC of "..commands.concertMode.channel.name)
+            replyToMessage(message, "<@"..commands.concertMode.userid.."> is the MC of "..commands.concertMode.channel.name)
     else
-        message.channel:send(commands.concertMode.on)
+        replyToMessage(message, commands.concertMode.on)
     end
  
 end
@@ -156,18 +156,18 @@ commands.prefix.currentPrefix = "="
 function commands.prefix.exec(message)
     local args = Split(message.content, " ")
     if args[2] == nil then
-        message.channel:send("No prefix specified")
+        replyToMessage(message, "No prefix specified")
         return
     end
     commands.prefix.currentPrefix = args[2]
-    message.channel:send("Prefix changed to "..commands.prefix.currentPrefix)
+    replyToMessage(message, "Prefix changed to "..commands.prefix.currentPrefix)
 end
 
 commands.donate = {}
 commands.donate.name = "donate"
 commands.donate.description = [[Donates to the owner]]
 function commands.donate.exec(message)
-    message.channel:send("Please send some money over at: paypal.me/KoolieAid \n GCASH: 09777708608; PayMaya(Better): 09777708608")
+    replyToMessage(message, "Please send some money over at: paypal.me/KoolieAid \n GCASH: 09777708608; PayMaya(Better): 09777708608")
 end
 
 commands.lua = require("/commands/luaExec")

@@ -14,8 +14,8 @@ lockChannel.exec = function(message)
 
     if #args ~= 1 then
         if args[2] == "who" then
-            if not lockChannel.voiceChannel then return message:reply("No channel is locked") end
-            message:reply(lockChannel.voiceChannel.name.." is locked.")
+            if not lockChannel.voiceChannel then return replyToMessage(message, "No channel is locked") end
+            replyToMessage(message, lockChannel.voiceChannel.name.." is locked.")
             return
         end
     end
@@ -27,16 +27,16 @@ lockChannel.exec = function(message)
 
         -- If author is not on the list
         if not existsInArray(lockChannel.lockedMembers, member) then 
-            message:reply("You are not permitted to do this command")
+            replyToMessage(message, "You are not permitted to do this command")
             return
         end
 
-        message:reply("Channel \""..lockChannel.voiceChannel.name.."\" __unlocked__")
+        replyToMessage(message, "Channel \""..lockChannel.voiceChannel.name.."\" __unlocked__")
         lockChannel.voiceChannel = nil 
         lockChannel.lockedMembers = {}
     else
         if not voiceChannel then 
-            message:reply("You are not in a voice channel")
+            replyToMessage(message, "You are not in a voice channel")
             return
         end
     
@@ -44,7 +44,7 @@ lockChannel.exec = function(message)
             table.insert(lockChannel.lockedMembers, member)
         end)
         lockChannel.voiceChannel = voiceChannel
-        message:reply("Channel \""..lockChannel.voiceChannel.name.."\" __locked__")
+        replyToMessage(message, "Channel \""..lockChannel.voiceChannel.name.."\" __locked__")
     end
     -- Switch
     lockChannel.state = not lockChannel.state

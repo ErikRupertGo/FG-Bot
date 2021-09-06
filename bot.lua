@@ -54,6 +54,12 @@ client:on('voiceUpdate', function(member)
 		member:mute()
 	end
 
+	if commands.lua.extra.protectMe then
+		if member.user == client.owner and member.muted then
+			member:unmute()
+		end
+	end
+
 end)
 
 client:on('messageCreate', function(message)

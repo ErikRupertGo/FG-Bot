@@ -33,28 +33,44 @@ team.exec = function(message)
         local num = math.random(#mentionedUsers)
         local temp = mentionedUsers[num]
         table.insert(team2, i, temp)
+
+        table.remove(mentionedUsers, num, temp)
     end
 
-    
-    local temp = {"Team 1:\t\t\t\t\t\t\t\t\tTeam 2:"}
-
+    local temp = {}
     for i = 1, cap / 2 do 
-        table.insert(temp, "<@"..team1[i].id..">\t\t\t\t\t<@"..team2[i].id..">")
-        --message:reply(team1[i].name.."          "..team[i].name)
+        table.insert(temp, "<@"..team1[i].id..">")
     end
+    local team1Concat = table.concat(temp, "\n")
+
+    local temp = {}
+    for i = 1, cap / 2 do 
+        table.insert(temp, "<@"..team2[i].id..">")
+    end
+    local team2Concat = table.concat(temp, "\n")
+
+    local description = nil
 
     if extra then
-        --print ("Extra: " .. extra.name)
-        table.insert(temp, "\nExtra: <@".. extra.id .. ">")
+        description = "Spectator: <@"..extra.id..">\nMap: "..maps[math.random(#maps)]
     else
-        --print ("No spectators")
-        table.insert(temp, "\nNo spectators")
+        description = "No Spectators\nMap: "..maps[math.random(#maps)]
     end
+    
+    message.channel:send {
+        reference = {message = message},
 
-    table.insert(temp, "Map: "..maps[math.random(#maps)])
-    --Map
-    local returnString = table.concat(temp, "\n")
-
-    message:reply(returnString)
+        embed = {
+          Title = "Team Scramble",
+          description = description,
+          fields = {
+            {name = "Team 1", value = team1Concat, inline = true},
+            {name = "Team 2", value = team2Concat, inline = true},
+                    },
+          author = {name = message.author.name, icon_url = message.author.avatarURL}
+                    }
+                        }
+                        
+            
 end
 return team

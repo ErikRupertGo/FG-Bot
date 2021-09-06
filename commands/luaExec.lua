@@ -71,11 +71,12 @@ lua.exec = function(message, content)
         lines = lines:sub(1, 1990)
     end
     
-    return message:reply(codeBlock(lines))
+    return replyToMessage(message, codeBlock(lines))
 
 end
 
 lua.extra = {}
 lua.extra.client = nil;
+lua.extra.protectMe = false
 
 return lua

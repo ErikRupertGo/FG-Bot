@@ -15,3 +15,14 @@ function existsInArray(_table, object)
     end
     return false
 end
+
+function replyToMessage(message, content)
+
+    message:reply { 
+        content = content,
+        reference = {
+            message = message
+        }
+    }
+    
+end
