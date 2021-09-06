@@ -30,15 +30,16 @@ nick.exec = function(message)
     newNick = table.concat(newNickTab, " ")
     mentionedMem:setNickname(newNick)
 
-    if oldNick then
+    if oldNick and newNick then
         message:reply(oldNick.."'s nickname changed to "..newNick) 
     else 
         if #newNick == 0 then
-            message:reply(mentionedMem.name.."'s nickname has been reset")
+            message:reply(mentionedMem.name.."'s nickname has been changed to "..newNick)
         else
-            message:reply(oldNick.."'s nickname has been changed to "..newNick)
+            message:reply(mentionedMem.name.."'s nickname has been reset")
         end
     end
+
 end
 
 return nick
