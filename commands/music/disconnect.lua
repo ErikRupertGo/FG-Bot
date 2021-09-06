@@ -12,6 +12,7 @@ disconnect.exec = function(message)
 
     connection:close()
     replyToMessage(message, "Disconnected from: "..connection.channel.name)
+    commands.startRadio.state = false
 
 end
 
