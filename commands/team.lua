@@ -45,7 +45,7 @@ team.exec = function(message)
 
     if extra then
         --print ("Extra: " .. extra.name)
-        table.insert(temp, "\nExtra: ".. extra.name)
+        table.insert(temp, "\nExtra: <@".. extra.id .. ">")
     else
         --print ("No spectators")
         table.insert(temp, "\nNo spectators")
