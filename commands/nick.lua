@@ -21,7 +21,24 @@ nick.exec = function(message)
         return
     end
 
-    mentionedMem:setNickname(args[3])
+    local oldNick = mentionedMem.nickname
+    local newNickTab = {}
+    local newNick = nil
+    for i = 3, #args do
+        table.insert(newNickTab, args[i])
+    end
+    newNick = table.concat(newNickTab, " ")
+    mentionedMem:setNickname(newNick)
+
+    if oldNick then
+        message:reply(oldNick.."'s nickname changed to "..newNick) 
+    else 
+        if #newNick == 0 then
+            message:reply(mentionedMem.name.."'s nickname has been reset")
+        else
+            message:reply(oldNick.."'s nickname has been changed to "..newNick)
+        end
+    end
 end
 
 return nick
