@@ -20,10 +20,12 @@ startRadio.exec = function(message)
     commands.startRadio.state = true
     connection = vChannel:join()
     connection:setBitrate(128000)
-    replyToMessage(message, "Radio Started")
-
-
+    startRadio.routine = coroutine.create(function()
     connection:playFFmpeg(startRadio.link)
+    end)
+
+    coroutine.resume(startRadio.routine)
+    replyToMessage(message, "Radio Started")
     --connection:playPCM(startRadio.link)
 end
 

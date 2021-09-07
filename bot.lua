@@ -76,32 +76,20 @@ client:on('messageCreate', function(message)
 
 	local status, error;
 
-	local function exec(k, message)
-		commands[k].exec(message, message.content)
+	local function exec(cmd, message)
+		commands[cmd].exec(message, message.content)
 	end
 
 	local args = Split(message.content, " ")
 
-	if isCommand(message) then
-		for k, v in pairs(commands) do
-			if args[1] == commands.prefix.currentPrefix..commands[k].name then
-					status, error = pcall(exec, k, message)
-			end
-		end
-	end
+	local cmd
+    cmd = string.sub(args[1], #commands.prefix.currentPrefix + 1, #message - 3)
 
+	if commands[cmd] == nil then return end
+
+	status, error = pcall(commands[cmd].exec, message, message.content)
 	if status == false then message:reply("```"..error.."```") end
+
 end)
-
-function isCommand(message)
-	local args = Split(message.content, ' ')
-
-	for key, val in pairs(commands) do
-		if string.find(args[1], commands.prefix.currentPrefix..commands[key].name) then
-			return true
-		end
-	end
-	return false
-end
 
 client:run("Bot "..token)
