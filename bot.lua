@@ -82,8 +82,9 @@ client:on('messageCreate', function(message)
 
 	local args = Split(message.content, " ")
 
+	if not string.find(args[1], commands.prefix.currentPrefix) then return end
 	local cmd
-    cmd = string.sub(args[1], #commands.prefix.currentPrefix + 1, #message - 3)
+    cmd = string.sub(args[1], #commands.prefix.currentPrefix + 1)
 
 	if commands[cmd] == nil then return end
 
