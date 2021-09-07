@@ -1,7 +1,7 @@
 local startRadio = {}
 startRadio.name = "startRadio"
 startRadio.description = "Starts simulator radio"
-startRadio.link = "https://simulatorradio.stream/stream?t=1630942580"
+startRadio.link = "https://simulatorradio.stream/stream.mp3"
 startRadio.state = false
 startRadio.exec = function(message)
 
@@ -21,7 +21,10 @@ startRadio.exec = function(message)
     connection = vChannel:join()
     connection:setBitrate(128000)
     replyToMessage(message, "Radio Started")
+
+
     connection:playFFmpeg(startRadio.link)
+    --connection:playPCM(startRadio.link)
 end
 
 return startRadio
