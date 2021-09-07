@@ -20,6 +20,7 @@ end
 
 lua.name = "lua"
 lua.description = "Executes lua script"
+lua.tag = "Power"
 lua.parse = function(message)
 
     --print(type(message))

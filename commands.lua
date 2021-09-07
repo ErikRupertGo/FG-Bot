@@ -4,7 +4,11 @@ commands = {}
 commands.help = {}
 commands.help.name = "help"
 commands.help.description = [[Gives you this info.]];
+commands.help.tag = "General"
 commands.help.concatString = nil
+commands.help.general = ""
+commands.help.music = ""
+commands.help.others = ""
 function commands.help.update()
     local temp = {}
     
@@ -14,15 +18,65 @@ function commands.help.update()
 
     commands.help.concatString = table.concat(temp, "\n")
 
+    local generalTable = {}
+    local musicTable = {}
+    local powerTable = {}
+    local othersTable = {}
+
+    -- Coverting to Table
+    for k, v in pairs(commands) do
+        if v.tag == "General" then
+            table.insert(generalTable, v.name)
+        elseif v.tag == "Music" then
+            table.insert(musicTable, v.name)
+        elseif v.tag == "Power" then
+            table.insert(powerTable, v.name)
+        else
+            table.insert(othersTable, v.name)
+        end
+    end
+
+    -- Concatenating to strings
+    commands.help.general = table.concat(generalTable, ", ")
+    commands.help.music = table.concat(musicTable, ", ")
+    commands.help.power = table.concat(powerTable, ", ")
+    commands.help.others = table.concat(othersTable, ", ")
+
 end
 
 function commands.help.exec(message)
-    replyToMessage(message, commands.help.concatString.."\n\nBot made by Chad Thundercock with the power of lua, luvit, and Discordia")
+
+    local args = Split(message.content, " ")
+
+    if #args ~= 1 then
+        if commands[args[2]] == nil then
+            replyToMessage(message, "No such command exists!")
+            return
+        end
+        replyToMessage(message, commands[args[2]].name.."\t-\t "..commands[args[2]].description)
+        return
+    end
+
+    message:reply {
+      embed = {
+        Title = "Help Menu",
+        description = "Bot made by Chad Thundercock with the power of **Lua**, **Luvit <3**, and **Discordia API**",
+        fields = {
+          {name = "General", value = commands.help.general},
+          {name = "Music", value = commands.help.music},
+          {name = "Power", value = commands.help.power},
+          {name = "Others", value = commands.help.others}
+        },
+        author = {name = message.client.user.name, icon_url = message.client.user.avatarURL}
+              },
+              reference = {message = message}
+    }
 end
 
 commands.upgrade = {}
 commands.upgrade.name = "upgrade"
 commands.upgrade.description = "Gives the mentioned user the everyone role"
+commands.upgrade.tag = "Power"
 
 function commands.upgrade.exec(message)
     local args = Split(message.content, " ")
@@ -52,6 +106,7 @@ end
 commands.downgrade = {}
 commands.downgrade.name = "downgrade"
 commands.downgrade.description = "Removes the everyone role from specified user"
+commands.downgrade.tag ="Power"
 
 function commands.downgrade.exec(message)
     local args = Split(message.content, " ")
@@ -81,6 +136,7 @@ end
 commands.concertMode = {}
 commands.concertMode.name = "concertMode"
 commands.concertMode.description = [[Makes the author the only one who can sing/talk in a channel]]
+commands.concertMode.tag = "General"
 commands.concertMode.on = false
 commands.concertMode.userid = nil
 commands.concertMode.channel = nil
@@ -152,6 +208,7 @@ end
 commands.prefix = {}
 commands.prefix.name = "prefix"
 commands.prefix.description = [[Changes the prefix of the bot]]
+commands.prefix.tag = "General"
 commands.prefix.currentPrefix = "="
 function commands.prefix.exec(message)
     local args = Split(message.content, " ")

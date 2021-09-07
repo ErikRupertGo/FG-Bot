@@ -2,6 +2,7 @@ local lockChannel = {}
 
 lockChannel.name = "lockChannel"
 lockChannel.description = "Locks the people already inside the channel. No one goes out, no one comes in."
+lockChannel.tag = "Power"
 lockChannel.state = false
 lockChannel.voiceChannel = nil
 lockChannel.lockedMembers = {}

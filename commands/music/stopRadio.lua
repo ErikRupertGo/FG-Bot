@@ -1,6 +1,7 @@
 local stopRadio = {}
 stopRadio.name = "stopRadio"
 stopRadio.description = "Stops the radio"
+stopRadio.tag = "Music"
 stopRadio.exec = function(message)
 
     if not commands.startRadio.state then

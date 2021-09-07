@@ -1,6 +1,7 @@
 local pauseRadio = {}
 pauseRadio.name = "pauseRadio"
 pauseRadio.description = "Pauses simulator radio"
+pauseRadio.tag = "Music"
 pauseRadio.exec = function(message)
 
     if not commands.startRadio.state then
