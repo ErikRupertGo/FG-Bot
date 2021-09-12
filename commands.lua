@@ -3,6 +3,7 @@ commands = {}
 
 commands.help = require("commands/help")
 
+commands.upgrade = require("commands/upgrade")
 commands.downgrade = require("commands/downgrade")
 commands.concertMode = require("commands/concertMode")
 
