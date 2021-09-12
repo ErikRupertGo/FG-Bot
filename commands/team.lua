@@ -52,9 +52,9 @@ team.exec = function(message)
     local description = nil
 
     if extra then
-        description = "Spectator: <@"..extra.id..">\nMap: "..maps[math.random(#maps)]
+        description = "Spectator: <@"..extra.id..">\nMap: **"..maps[math.random(#maps)].."**"
     else
-        description = "No Spectators\nMap: "..maps[math.random(#maps)]
+        description = "No Spectators\nMap: **"..maps[math.random(#maps)].."**"
     end
     
     message.channel:send {
@@ -67,7 +67,7 @@ team.exec = function(message)
             {name = "Team 1", value = team1Concat, inline = true},
             {name = "Team 2", value = team2Concat, inline = true},
                     },
-          author = {name = message.author.name, icon_url = message.author.avatarURL}
+          author = {name = "Valorant Teams", icon_url = 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.publish0x.com%2Fprod%2Ffs%2Fimages%2F6ac0ff5feb2e723eaa18dace82b96ab9aca5ed93038ad2d739f3d58132cc3bed.png&f=1&nofb=1'}
                     }
                         }
                         

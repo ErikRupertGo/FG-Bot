@@ -13,7 +13,7 @@ io.close(tokenFile)
 math.randomseed(os.time())
 
 client:on('ready', function()
-	commands.help.update()
+	commands.help:update()
 	commands.lua.extra.client = client
 	print("Bot is now online!")
 end)
@@ -63,7 +63,7 @@ client:on('voiceUpdate', function(member)
 end)
 
 client:on('messageCreate', function(message)
-
+	
 	if not message.guild then return end
 	if message.author.bot then return end
 
@@ -76,10 +76,6 @@ client:on('messageCreate', function(message)
 
 	local status, error;
 
-	local function exec(cmd, message)
-		commands[cmd].exec(message, message.content)
-	end
-
 	local args = Split(message.content, " ")
 
 	if not string.find(args[1], commands.prefix.currentPrefix) then return end
@@ -88,7 +84,7 @@ client:on('messageCreate', function(message)
 
 	if commands[cmd] == nil then return end
 
-	status, error = pcall(commands[cmd].exec, message, message.content)
+	status, error = pcall(commands[cmd].exec, commands[cmd], message, message.content)
 	if status == false then message:reply("```"..error.."```") end
 
 end)
