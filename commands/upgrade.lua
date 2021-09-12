@@ -3,7 +3,7 @@ upgrade.name = "upgrade"
 upgrade.description = "Gives the mentioned user the everyone role"
 upgrade.tag = "Power"
 
-function commands.upgrade:exec(message)
+function upgrade:exec(message)
     local args = Split(message.content, " ")
     local guild = message.guild
     if #args == 1 then
