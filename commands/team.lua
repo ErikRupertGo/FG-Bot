@@ -3,7 +3,7 @@ local team = {}
 team.name = "team"
 team.description = "Scramble teams for games"
 local maps = {"Ascent", "Split", "Bind", "Haven", "Breeze", "Icebox", "Fracture"}
-team.exec = function(message)
+team.exec = function(self, message)
 
     local mentionedUsers = message.mentionedUsers:toArray()
     local team1 = {}
