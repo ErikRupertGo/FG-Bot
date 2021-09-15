@@ -2,7 +2,7 @@ local pauseRadio = {}
 pauseRadio.name = "pauseRadio"
 pauseRadio.description = "Pauses simulator radio"
 pauseRadio.tag = "Music"
-pauseRadio.exec = function(message)
+pauseRadio.exec = function(self, message)
 
     if not commands.startRadio.state then
         replyToMessage(message, "Radio is not online")

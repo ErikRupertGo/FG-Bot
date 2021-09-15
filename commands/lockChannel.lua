@@ -7,7 +7,7 @@ lockChannel.state = false
 lockChannel.voiceChannel = nil
 lockChannel.lockedMembers = {}
 
-lockChannel.exec = function(message)
+lockChannel.exec = function(self, message)
 
     local args = Split(message.content, " ")
     local member = message.guild:getMember(message.author.id)

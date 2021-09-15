@@ -2,7 +2,7 @@ local stopRadio = {}
 stopRadio.name = "stopRadio"
 stopRadio.description = "Stops the radio"
 stopRadio.tag = "Music"
-stopRadio.exec = function(message)
+stopRadio.exec = function(self, message)
 
     if not commands.startRadio.state then
         replyToMessage(message, "Radio is already offline")

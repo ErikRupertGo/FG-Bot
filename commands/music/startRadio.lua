@@ -4,7 +4,7 @@ startRadio.description = "Starts simulator radio"
 startRadio.tag = "Music"
 startRadio.link = "https://simulatorradio.stream/stream.mp3"
 startRadio.state = false
-startRadio.exec = function(message)
+startRadio.exec = function(self, message)
 
     local vChannel = message.member.voiceChannel
     if not vChannel then

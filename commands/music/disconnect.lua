@@ -2,7 +2,7 @@ local disconnect = {}
 disconnect.name = "disconnect"
 disconnect.description = "Disconnect from the connected channel"
 disconnect.tag = "Music"
-disconnect.exec = function(message)
+disconnect.exec = function(self, message)
 
     local connection = message.guild.connection
     if not connection then

@@ -2,7 +2,7 @@ local resumeRadio = {}
 resumeRadio.name = "resumeRadio"
 resumeRadio.description = "Resumes the radio, if paused"
 resumeRadio.tag = "Music"
-resumeRadio.exec = function(message)
+resumeRadio.exec = function(self, message)
 
     if not commands.startRadio.state then
         replyToMessage(message, "Radio is not online")
