@@ -24,4 +24,6 @@ commands.resumeRadio = require("/commands/music/resumeRadio")
 commands.stopRadio = require("/commands/music/stopRadio")
 commands.disconnect = require("/commands/music/disconnect")
 
+commands.voiceClip = require("/commands/voiceClip")
+
 return commands

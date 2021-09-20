@@ -19,6 +19,7 @@ lockChannel.exec = function(self, message)
             replyToMessage(message, lockChannel.voiceChannel.name.." is locked.")
             return
         end
+        return replyToMessage(message, "Unknown argument")
     end
 
     -- Switcherino
@@ -49,7 +50,6 @@ lockChannel.exec = function(self, message)
     end
     -- Switch
     lockChannel.state = not lockChannel.state
-
 
 end
 

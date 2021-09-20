@@ -4,7 +4,7 @@ team.name = "team"
 team.description = "Scramble teams for games"
 local maps = {"Ascent", "Split", "Bind", "Haven", "Breeze", "Icebox", "Fracture"}
 team.exec = function(self, message)
-
+    message.channel:broadcastTyping();
     local mentionedUsers = message.mentionedUsers:toArray()
     local team1 = {}
     local team2 = {}

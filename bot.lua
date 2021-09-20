@@ -12,9 +12,12 @@ io.close(tokenFile)
 
 math.randomseed(os.time())
 
+--guildCollection = {}
+
 client:on('ready', function()
 	commands.help:update()
 	commands.lua.extra.client = client
+	--guildCollection = getJSONObject()
 	print("Bot is now online!")
 end)
 
@@ -63,10 +66,26 @@ client:on('voiceUpdate', function(member)
 end)
 
 client:on('messageCreate', function(message)
-	
+	--if message.author ~= client.owner then return end
 	if not message.guild then return end
 	if message.author.bot then return end
 
+	if message.content:lower():find("bruh") then 
+		local member = message.member
+		local voiceChannel = member.voiceChannel
+		local guildConnection = message.guild.connection
+		if voiceChannel and not voiceChannel.connection and not commands.startRadio.state and not guildConnection then
+			local fn = coroutine.wrap(function()
+				connection = voiceChannel:join()
+				if connection then
+					connection:playFFmpeg("./voice_clips/bruh.mp3")
+					connection:close()
+				end
+			end)
+			
+			pcall(fn)
+		end
+	end
 
 	if string.find(message.content, "wanna die") then message:reply("same") end
 
@@ -74,17 +93,14 @@ client:on('messageCreate', function(message)
 		message:reply("ulol tangina mo anong play play ka diyan")
 	end
 
-	local status, error;
-
 	local args = Split(message.content, " ")
 
 	if not string.find(args[1], commands.prefix.currentPrefix) then return end
-	local cmd
-    cmd = string.sub(args[1], #commands.prefix.currentPrefix + 1)
+    local cmd = string.sub(args[1], #commands.prefix.currentPrefix + 1)
 
 	if commands[cmd] == nil then return end
 
-	status, error = pcall(commands[cmd].exec, commands[cmd], message, message.content)
+	local status, error = pcall(commands[cmd].exec, commands[cmd], message, message.content)
 	if status == false then message:reply("```"..error.."```") end
 
 end)
