@@ -3,7 +3,7 @@ local nick = {}
 nick.name = "nick"
 nick.description = "Changes the nickname of the mentioned user"
 nick.tag = "General"
-nick.exec = function(message)
+nick.exec = function(self, message)
 
     local member = message.guild:getMember(message.author.id)
     local guild = message.guild
