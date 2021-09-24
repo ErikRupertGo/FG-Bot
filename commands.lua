@@ -9,6 +9,7 @@ commands.concertMode = require("commands/concertMode")
 
 commands.prefix = require("commands/prefix")
 commands.donate = require("commands/donate")
+commands.reason = require("commands/reason")
 
 commands.lua = require("/commands/luaExec")
 commands.lockChannel = require("/commands/lockChannel")
