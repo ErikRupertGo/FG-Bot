@@ -76,6 +76,10 @@ client:on('voiceUpdate', function(member)
 		end
 	end
 
+	if mutedUsers[member.id] and member.voiceChannel.id == '890946244430663720' then
+		member:mute()
+	end
+
 end)
 
 client:on('messageCreate', function(message)
