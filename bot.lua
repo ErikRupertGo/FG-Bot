@@ -11,7 +11,7 @@ local token = io.read()
 io.close(tokenFile)
 
 math.randomseed(os.time())
-
+local mutedUsers = {}
 --guildCollection = {}
 
 client:on('ready', function()
@@ -24,7 +24,7 @@ end)
 client:on('voiceChannelJoin', function(member, channel)
 
 	-- Concert Mode
-	if commands.concertMode.on then
+	if commands.concertMode.on and channel.id ~= '890946244430663720' then
 		if commands.concertMode.channel == channel and member.user.id ~= commands.concertMode.userid then
 			member:mute()
 		end
@@ -42,6 +42,19 @@ client:on('voiceChannelJoin', function(member, channel)
 		-- On the lockdown list, bring member back
 		elseif existsInArray(commands.lockChannel.lockedMembers, member) and channel ~= commands.lockChannel.voiceChannel then
 			member:setVoiceChannel(commands.lockChannel.voiceChannel)
+		end
+	end
+
+	-- OnlyBots Voice Channel
+	if channel.id == '890946244430663720' and not member.user.bot then
+		mutedUsers[member.id] = true
+		member:mute()
+	end
+
+	if channel.id ~= '890946244430663720' and not member.user.bot then
+		if mutedUsers[member.id] then
+			member:unmute()
+			mutedUsers[member.id] = false
 		end
 	end
 

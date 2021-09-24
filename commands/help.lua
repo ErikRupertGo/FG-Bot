@@ -57,7 +57,7 @@ function help:exec(message)
     message:reply {
       embed = {
         Title = "Help Menu",
-        description = "Bot made by Chad Thundercock with the power of **Lua**, **Luvit <3**, and **Discordia API**",
+        description = "Bot made by Chad Thundercock with the power of **Lua**, **Luvit**, and **Discordia**",
         fields = {
           {name = "General", value = self.general},
           {name = "Music", value = self.music},
@@ -66,7 +66,7 @@ function help:exec(message)
         },
         author = {name = message.client.user.name, icon_url = message.client.user.avatarURL}
               },
-              reference = {message = message}
+        reference = {message = message}
     }
 end
 
